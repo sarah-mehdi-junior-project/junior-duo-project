@@ -26,8 +26,9 @@ export const createGame=async(req,res)=>{
 //     const updatePost=await postMessage.findByIdAndUpdate(_id,post,{new:true})
 //     res.json(updatePost)
 // }
-// export const deletePost=async(req,res)=>{
-//     const {id}=req.params
-//     await postMessage.findByIdAndDelete(id)
-//     res.send("post deleted")
-// }
+export const deleteGame=async(req,res)=>{
+    const {id}=req.params
+    await NewGame.findByIdAndDelete(id)
+    console.log("delete");
+    res.send("game deleted")
+}
