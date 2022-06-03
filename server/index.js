@@ -2,6 +2,7 @@ import express  from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import gameRoutes from "./routes/Game.js"
+import fullsetRoutes from "./routes/Fullset.js"
 const mongoUrl = "mongodb://localhost/snes";
 
 
@@ -19,6 +20,7 @@ app.use(cors())
 
 const PORT=process.env.PORT || 3000;
  app.use('/games',gameRoutes)
+ app.use('/fullset',fullsetRoutes)
 
 
 

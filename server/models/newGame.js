@@ -11,7 +11,8 @@ const gameSchema=mongoose.Schema({
     },box:{
         type:Boolean,
         default:false
-    }
+    },
+    img:String
     
 });
 const NewGame = mongoose.model('newGame',gameSchema);
