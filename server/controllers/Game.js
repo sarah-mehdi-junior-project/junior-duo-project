@@ -1,13 +1,13 @@
 import NewGame from "../models/newGame.js"
-// export const getPosts=async(req,res)=>{
-//     try{
-//         console.log("get here");
-//         const postMessages=await postMessage.find();
-//         res.status(200).json(postMessages)
-//     }catch(error){
-//         res.status(404).json({message:error.message})
-//     }
-// }
+export const getMyGames=async(req,res)=>{
+    try{       
+        const MyGames=await NewGame.find({});
+        console.log(MyGames);
+        res.status(200).json(MyGames)
+    }catch(error){
+        res.status(404).json({message:error.message})
+    }
+}
 export const createGame=async(req,res)=>{
     console.log("post here");
     const game=req.body
