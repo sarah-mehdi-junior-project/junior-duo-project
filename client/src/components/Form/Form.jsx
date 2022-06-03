@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {  TextField, Button, Typography, Paper } from "@material-ui/core";
+import {  Button, Typography, Paper } from "@material-ui/core";
+import {addGame} from "../../api/api"
 import useStyles from "./styles"
 import { FormGroup,Switch,InputLabel, MenuItem, FormControl, Select, Radio, RadioGroup, FormControlLabel, FormLabel } from '@mui/material';
 
@@ -8,19 +9,23 @@ import { FormGroup,Switch,InputLabel, MenuItem, FormControl, Select, Radio, Radi
 
 function Form() {
     const [state, setState] = useState({
-        creator: '', dogName: '', message: '', tags: '', selectedFild: '', gameTitle: '', gameState: ''
+          gameTitle: '', gameCondition: '',region:"",box:false,owned:true
     })
-
+    
+    const handleSubmit = (e) => {
+        e.preventDefault();
+         addGame(state)   
+    }
     const classes = useStyles();
     return (
         <Paper className={classes.paper}>
             <div autoComplete="off" noValidate className={`${classes.root} ${classes.form}`}>
-                <Typography variant="h6">share your dog joy</Typography><br />
+                <Typography variant="h6">Add a new game to your collection</Typography><br />
 
                 <FormControl variant="outlined" fullWidth>
                     <InputLabel id="gameTitle-label">game title</InputLabel>
                     <Select labelId="gameTitle-label" id="gameTitle" value={state.gameTitle} label="gameTitle"
-                        onChange={() => { }}
+                        onChange={(e) => setState({ ...state, gameTitle: e.target.value })}
                     >
                         <MenuItem value={"mario"}>mario</MenuItem>
                         <MenuItem value={"zelda"}>zelda</MenuItem>
@@ -28,34 +33,23 @@ function Form() {
                     </Select>
                 </FormControl>
                 <FormControl variant="outlined" fullWidth>
-                    <InputLabel id="gameState-label">game state</InputLabel>
-                    <Select labelId="gameState-label" id="gameState" value={state.gameState} label="gameTitle"
-                        onChange={() => { }}
+                    <InputLabel id="gameCondition-label">game condition</InputLabel>
+                    <Select labelId="gameCondition-label" id="gameCondition" value={state.gameCondition} label="gameCondition"
+                        onChange={(e) => setState({ ...state, gameCondition: e.target.value })}
                     >
                         <MenuItem value={"mediocre"}>mediocre</MenuItem>
                         <MenuItem value={"medium"}>medium</MenuItem>
                         <MenuItem value={"mint"}>mint</MenuItem>
                     </Select>
                 </FormControl>
-                <FormControl>
-                    <FormLabel id="condition-group-label">condition</FormLabel>
-                    <RadioGroup
-                        row
-                        aria-labelledby="condition-group-label"
-                        name="condition-group"
-                    >
-                        <FormControlLabel value="mediocre" control={<Radio />} label="mediocre" />
-                        <FormControlLabel value="normal" control={<Radio />} label="normal" />
-                        <FormControlLabel value="mint" control={<Radio />} label="mint" />
-                    </RadioGroup>
-                </FormControl>
+               
                 <FormGroup>
-                    <FormControlLabel  control={<Switch />} label="Disabled" />
+                    <FormControlLabel onChange={(e) =>{ setState({ ...state, box: !state.box })}} control={<Switch />} label="Box" />
                 </FormGroup>
                 <FormControl variant="outlined" fullWidth>
-                    <InputLabel id="region-label">game state</InputLabel>
+                    <InputLabel id="region-label">game region</InputLabel>
                     <Select labelId="region-label" id="region" value={state.region} label="region"
-                        onChange={() => { }}
+                        onChange={(e) => setState({ ...state, region: e.target.value })}
                     >
                         <MenuItem value={"EU"}>EU</MenuItem>
                         <MenuItem value={"USA"}>USA</MenuItem>
@@ -63,8 +57,8 @@ function Form() {
                     </Select>
                 </FormControl>
 
-                <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" onClick={() => { }} fullWidth>Add</Button>
-                <Button variant="contained" color="secondary" size="small" onClick={() => { }} fullWidth>Clear</Button>
+                <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" onClick={(e) => {handleSubmit(e)}} fullWidth>Add</Button>
+                <Button variant="contained" color="secondary" size="small"  fullWidth>Clear</Button>
             </div>
         </Paper>
     )
