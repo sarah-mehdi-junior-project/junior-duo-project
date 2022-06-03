@@ -4,20 +4,8 @@ import useStyles from "./styles"
 import { Grid,CircularProgress } from "@material-ui/core";
     
 
-const List =()=>{
-    const list=[
-        {gameTitle:
-        "zelda",
-        gameCondition:
-        "mint",
-        region:
-        "EU",
-        owned:
-        false,
-        box:
-        true,
-        _id:1
-    }]
+const List =({data})=>{
+    const list=data
     const classes= useStyles()
 return(
     !list.length ?<CircularProgress/>:(

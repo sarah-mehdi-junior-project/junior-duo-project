@@ -18,7 +18,7 @@ return (
       {data.length&&console.log(data)}
       Hello
       {/* <div><Form /></div> */}
-      <div><List /></div>
+      <div><List data={data}/></div>
      
     </div>
   );

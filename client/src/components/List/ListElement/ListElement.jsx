@@ -2,6 +2,7 @@ import React from "react";
 import useStyles from "./styles"
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from "@material-ui/core";
 import DeleteIcon from '@material-ui/icons/Delete';
+import {deleteGame} from '../../../api/api.js'
 const ListElement = ({ game }) => {
     const classes = useStyles()
     return (
@@ -17,7 +18,7 @@ const ListElement = ({ game }) => {
                 <Typography variant="body2" color="textSecondary" component="p">{game.gameCondition}</Typography>
             </CardContent>
             <CardActions className={classes.cardActions}>
-                <Button size="small" color="primary" onClick={()=>{}}><DeleteIcon fontSize="small" /> Delete</Button>
+                <Button size="small" color="primary" onClick={()=>{deleteGame(game._id)}}><DeleteIcon fontSize="small" /> Delete</Button>
             </CardActions>
 
 
