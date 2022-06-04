@@ -1,4 +1,6 @@
 import NewGame from "../models/newGame.js"
+import mongoose from "mongoose"
+const IdObj = mongoose.Types.ObjectId
 export const getMyGames=async(req,res)=>{
     try{       
         const MyGames=await NewGame.find({});
@@ -31,4 +33,39 @@ export const deleteGame=async(req,res)=>{
     await NewGame.findByIdAndDelete(id)
     console.log("delete");
     res.send("game deleted")
+}
+export const updateC = function (req,res) {
+    let id = req.params.id
+    console.log(req.body);
+    console.log(typeof id);
+    if(!IdObj.isValid(id)) {
+    res.status(400).send(id,' :ID Not found')
+    }
+    try{
+   let upC = NewGame.findByIdAndUpdate(id,
+        {$set:{gameCondition: req.body.gameCondition}},
+        {new: true, upsert: true}
+        ).then((result)=>{
+             res.send(result)
+        })
+    } catch(error){
+        return res.status(500).json(error)
+    }
+}
+
+export const updateR = function (req,res) {
+    let id = req.params.id
+    if(!IdObj.isValid(id)) {
+    res.status(400).send(id,' :ID Not found')
+    }
+    try{
+   let upR = NewGame.findByIdAndUpdate(id,
+        {$set:{region: req.body.region}},
+        {new: true, upsert: true}
+        ).then((result)=>{
+            res.send(result)
+       })
+    } catch(error){
+        return res.status(500).json(error)
+    }
 }

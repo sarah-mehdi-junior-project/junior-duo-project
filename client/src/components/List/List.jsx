@@ -4,7 +4,7 @@ import useStyles from "./styles"
 import { Grid,CircularProgress } from "@material-ui/core";
     
 
-const List =({data})=>{
+const List =({data,update})=>{
     const list=data
     const classes= useStyles()
 return(
@@ -12,7 +12,7 @@ return(
         <Grid className={classes.container} container alignItems="stretch" spacing ="3">
             {list.map((game)=>(
                 <Grid key={game._id} item xs={12} sm={6}>
-                    <ListElement game={game} />
+                    <ListElement game={game} update={update}/>
                 </Grid>
             ))}
         </Grid>

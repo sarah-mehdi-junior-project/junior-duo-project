@@ -1,8 +1,9 @@
 import React,{ useState, useEffect } from "react";
 import Form from "./components/Form/Form.jsx";
 import List from "./components/List/List.jsx";
-import {getMyGames} from "./api/api.js";
+import {getMyGames,getGames} from "./api/api.js";
 import NavBar from "./components/NavBar/NavBar.jsx";
+import Table from "./components/Table/Table.jsx"
 class App extends React.Component {
   constructor() {
     super();
@@ -10,6 +11,8 @@ class App extends React.Component {
       data:[],
       view: 'home',
       update:false,
+      fullset:[]
+
     }
 
     this.changeView = this.changeView.bind(this);
@@ -18,6 +21,9 @@ class App extends React.Component {
   componentDidMount(){
     getMyGames().then((res)=>{
       this.setState({data:res.data})
+    }).catch(err=>console.log(err))
+    getGames().then((res)=>{
+      this.setState({fullset:res.data})
     }).catch(err=>console.log(err))
   }
   componentDidUpdate(prevProps,prevState){
@@ -42,13 +48,13 @@ class App extends React.Component {
     const {view} = this.state;
 
     if (view === 'home') {
-      return <List handleClick={(home) => this.changeView('home',home)} data={this.state.data}/>
+      return <List handleClick={(home) => this.changeView('home',home)} data={this.state.data} update={this.handleUpdate}/>
     } 
     else if(view === 'add'){
-      return <Form update={this.handleUpdate}/>
+      return <Form data={this.state.fullset} update={this.handleUpdate}/>
     }
     else if(view === 'fullset'){
-      return <div></div>
+      return <Table />
     }
     
   }

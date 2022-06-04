@@ -44,7 +44,7 @@ export default function NavBar({view}) {
         value="nearby"
         icon={<AddCircleIcon />}
       />
-      <BottomNavigationAction label="FullSet" value="folder" icon={<FolderIcon />} />
+      <BottomNavigationAction onClick={()=>view("fullset")} label="FullSet" value="folder" icon={<FolderIcon />} />
     </BottomNavigation>
   );
 }
