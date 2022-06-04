@@ -3,6 +3,7 @@ import Form from "./components/Form/Form.jsx";
 import List from "./components/List/List.jsx";
 import {getMyGames,getGames} from "./api/api.js";
 import NavBar from "./components/NavBar/NavBar.jsx";
+import Table from "./components/Table/Table.jsx"
 class App extends React.Component {
   constructor() {
     super();
@@ -53,7 +54,7 @@ class App extends React.Component {
       return <Form data={this.state.fullset} update={this.handleUpdate}/>
     }
     else if(view === 'fullset'){
-      return <div></div>
+      return <Table />
     }
     
   }
