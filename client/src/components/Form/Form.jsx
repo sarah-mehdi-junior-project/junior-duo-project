@@ -7,29 +7,42 @@ import { TextField,FormGroup,Switch,InputLabel, MenuItem, FormControl, Select, R
 
 
 
-function Form() {
+function Form({data}) {
     const [state, setState] = useState({
           gameTitle: '', gameCondition: '',region:"",box:false,owned:true,img:''
     })
-    useEffect(()=>{},[])
+    // const image = (game) => {
+    //     var array= data.filter((e)=>e.gameTitle===game)
+    //     console.log(array);
+    //     setState({ ...state, img: array[0].img })
+    // }
+    // useEffect((gameTitle)=>{
+    //     var array= data.filter((e)=>e.gameTitle===gameTitle)
+    //     console.log(array);
+    //     setState({ ...state, img: array[0].img })}
+    //     ,[state.gameTitle])
+    const handleTitleChange=(e)=>{
+        var array= data.filter((elem)=>elem.gameTitle===e.target.value)
+            console.log(array);
+            setState({ ...state, img: array[0].img,gameTitle:array[0].gameTitle })
+    }
     const handleSubmit = (e) => {
         e.preventDefault();
-         addGame(state)   
+         addGame(state)
     }
     const classes = useStyles();
     return (
-        <Paper className={classes.paper}>
+        <Paper style={{backgroundImage: `url("https://images7.alphacoders.com/559/559696.jpg")`,opacity: "1",backgroundSize:"cover"}} className={classes.paper}>
             <div autoComplete="off" noValidate className={`${classes.root} ${classes.form}`}>
                 <Typography variant="h6">Add a new game to your collection</Typography><br />
 
                 <FormControl variant="outlined" fullWidth>
                     <InputLabel id="gameTitle-label">game title</InputLabel>
                     <Select labelId="gameTitle-label" id="gameTitle" value={state.gameTitle} label="gameTitle"
-                        onChange={(e) => setState({ ...state, gameTitle: e.target.value })}
-                    >
-                        <MenuItem value={"mario"}>mario</MenuItem><br/>
-                        <MenuItem value={"zelda"}>zelda</MenuItem><br/>
-                        <MenuItem value={"metroid"}>metroid</MenuItem><br/>
+                        onChange={(e) => { handleTitleChange(e) }}
+                    >{data.map((e,i)=>{
+                        return(<MenuItem value={`${e.gameTitle}`} key={i}>{e.gameTitle}</MenuItem>)
+                        })}
                     </Select>
                 </FormControl>
                 <FormControl variant="outlined" fullWidth>
@@ -56,11 +69,9 @@ function Form() {
                         <MenuItem value={"JAPAN"}>JAPAN</MenuItem><br/>
                     </Select>
                 </FormControl>
-                <TextField name="image url" variant="outlined" label="image" fullWidth value={state.img} onChange={(e) => setState({ ...state, img: e.target.value })} />
 
 
                 <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" onClick={(e) => {handleSubmit(e)}} fullWidth>Add</Button>
-                <Button variant="contained" color="secondary" size="small"  fullWidth>Clear</Button>
             </div>
         </Paper>
     )
